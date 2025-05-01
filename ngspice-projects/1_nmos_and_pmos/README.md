@@ -23,8 +23,8 @@ The following characteristics are covered for both NMOS and PMOS:
 
 ## 📁 Files Included
 
-- `nmos_characteristics.cir` - NMOS drain and transfer characteristics
-- `pmos_characteristics.cir` - PMOS drain and transfer characteristics
+- `nmos.sp` - NMOS drain and transfer characteristics
+- `pmos.sp` - PMOS drain and transfer characteristics
 
 ## 🚀 How to Run the Simulations
 
@@ -33,8 +33,8 @@ The following characteristics are covered for both NMOS and PMOS:
    
 2. **Run simulation using terminal**:
    ```bash
-   ngspice nmos_characteristics.cir
-   ngspice pmos_characteristics.cir
+   ngspice nmos.sp
+   ngspice pmos.sp
    ```
 
 3. **Viewing Results**:
