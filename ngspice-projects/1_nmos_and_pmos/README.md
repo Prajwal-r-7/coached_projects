@@ -43,10 +43,9 @@ The following characteristics are covered for both NMOS and PMOS:
 
 ## 📝 Key Observations
 
-- Monitor threshold voltage
+- Monitor threshold voltage 
 - Compare linear vs. saturation regions
-- Observe channel length modulation effects
-- Compare NMOS vs. PMOS current drive capability
+- Observe channel length modulation effects (short channel effect)
 
 ---
 
