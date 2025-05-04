@@ -33,8 +33,8 @@ The following characteristics are covered for both NMOS and PMOS:
    
 2. **Run simulation using terminal**:
    ```bash
-   ngspice nmos.sp
-   ngspice pmos.sp
+   source nmos.sp
+   source pmos.sp
    ```
 
 3. **Viewing Results**:
