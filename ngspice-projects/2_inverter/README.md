@@ -62,10 +62,7 @@ The `vin_vs_vout.png` shows the time-domain response of the inverter. When the i
 
 ### Drain Current vs Gate-Source Voltage
 
-The `Id_vs_vds.png` shows how the drain current through the transistors varies with respect to the gate-source voltage, which helps characterize the:
-- Transistor operation regions
-- Current consumption during switching
-- Static power consumption
+The `Id_vs_vds.png` shows how the drain current through the transistors varies with respect to the gate-source voltage, which helps characterize the transistor operation regions
 
 ## 🧪 Simulation Methods
 
