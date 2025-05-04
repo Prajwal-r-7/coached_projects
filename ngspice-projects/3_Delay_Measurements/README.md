@@ -74,7 +74,7 @@ Delay measurements are critical in digital circuit design for several reasons:
 1. Ensure you have ngspice installed on your system
 2. Navigate to the `xor_delay_measurements` directory
 3. Run the simulation using:
-   ```
+   ```bash
    source xor_delay_meas.sp
    ```
 4. The measurements will be displayed in the console output
