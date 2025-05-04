@@ -75,7 +75,7 @@ Delay measurements are critical in digital circuit design for several reasons:
 2. Navigate to the `xor_delay_measurements` directory
 3. Run the simulation using:
    ```
-   ngspice xor_delay_meas.sp
+   source xor_delay_meas.sp
    ```
 4. The measurements will be displayed in the console output
 5. Waveforms can be visualized as per the plot commands in the control section
