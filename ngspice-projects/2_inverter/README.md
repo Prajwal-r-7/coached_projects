@@ -75,7 +75,7 @@ The inverter.sp file contains two main simulation approaches:
 1. Ensure you have NGSpice installed on your system
 2. Navigate to the inverter directory
 3. Run the simulation using:
-   ```
+   ```bash
    source inverter.sp
    ```
 4. Modify the file to uncomment different plot commands for various analyses
