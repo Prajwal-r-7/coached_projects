@@ -49,7 +49,7 @@ The VTC plot (`vout_vs_vin(vtc).png`) shows how the output voltage changes with 
 - **VOL**: Minimum output voltage when input is HIGH
 - **VIH**: Input voltage above which the output is considered LOW
 - **VIL**: Input voltage below which the output is considered HIGH
-- **VM**: Switching threshold voltage (measured when Vout = 0.5V)
+- **Vt**: Switching threshold voltage (measured when Vout = 0.5V)
 
 The VTC curve demonstrates the inverter's:
 - Voltage gain
@@ -72,20 +72,6 @@ The `Id_vs_vds.png` shows how the drain current through the transistors varies w
 The inverter.sp file contains two main simulation approaches:
 1. **Transient Analysis**: Uncomment `.tran 1m 100m` to observe the time-domain behavior
 2. **DC Analysis**: Using `.dc Vgate 0 1 1m` to sweep the input voltage and generate the VTC
-
-## 🔑 Importance of Inverter Analysis
-
-Analyzing the inverter is fundamental for digital IC design because:
-
-1. **🔍 Digital Performance**: The inverter's switching characteristics determine the maximum operating frequency of digital circuits.
-
-2. **⚡ Power Consumption**: Understanding the current draw during static and dynamic operation helps optimize power usage.
-
-3. **📊 Noise Margins**: The VTC helps determine how resistant the circuit is to noise.
-
-4. **⚖️ Transistor Sizing**: Proper PMOS/NMOS sizing ensures balanced rising and falling edge times.
-
-5. **🌡️ Process Variation Analysis**: Simulations help understand how manufacturing variations affect performance.
 
 ## 🚀 How to Run the Simulation
 
