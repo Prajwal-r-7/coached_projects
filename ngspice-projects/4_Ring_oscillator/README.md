@@ -6,6 +6,7 @@ A ring oscillator is a device composed of an odd number of NOT gates whose outpu
 
 ## 📁 Repository Structure
 
+```
 /Delay_Measurements
 ├── /subcircuits
 │   ├── subinv.sp    # Inverter subcircuit
@@ -14,7 +15,7 @@ A ring oscillator is a device composed of an odd number of NOT gates whose outpu
     ├── xor_delay_meas.sp    # Main simulation file
     ├── result.png           # Simulation results
     └── xor_circuit.jpg      # Circuit diagram
-    
+``` 
 
 ### ⚙️ Circuit Operation
 1. When the enable signal (`in1`) is LOW:
