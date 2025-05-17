@@ -1,87 +1,142 @@
-🔄 CMOS Inverter Circuit Simulation
-This repository contains SPICE simulations for analyzing the characteristics of a basic CMOS inverter circuit.
+🔄 4-Stage Ring Oscillator with NAND Gate
+This repository contains SPICE simulations for a 4-stage ring oscillator with an enable control implemented using a NAND gate.
 🔍 Project Overview
-The CMOS inverter is the fundamental building block of digital integrated circuits. This project demonstrates the behavior and electrical characteristics of a CMOS inverter through various simulation methods using NGSpice.
+A ring oscillator is a device composed of an odd number of NOT gates whose output oscillates between two voltage levels. This project implements a 4-stage ring oscillator with enable control using a NAND gate and analyzes its key parameters including oscillation frequency, duty cycle, and power consumption.
 📁 Repository Structure
-/2_inverter
-└── /inverter
-    ├── inverter.sp            # Main SPICE simulation file
-    ├── vin_vs_vout.png        # Input vs Output voltage waveform
-    ├── vout_vs_vin(vtc).png   # Voltage Transfer Characteristic (VTC)
-    └── Id_vs_vds.png          # Drain current vs Drain-Source voltage
-🔧 CMOS Inverter Basics
-A CMOS inverter consists of two complementary MOSFETs (Metal-Oxide-Semiconductor Field-Effect Transistors):
+/Ring_Oscillator
+├── /subcircuits
+│   ├── subinv.sp      # Inverter subcircuit
+│   └── subcktnand.sp  # NAND gate subcircuit
+└── /simulation
+    ├── ring_osc.sp    # Main simulation file
+    └── output.png     # Waveform output
+🔧 Circuit Design
+The 4-stage ring oscillator is implemented using:
 
-PMOS (P-channel MOSFET) - connected to VDD (supply voltage)
-NMOS (N-channel MOSFET) - connected to VSS (ground)
+1 NAND gate (for enable control)
+4 inverters connected in series
+Feedback from the last inverter to the NAND gate
 
 ⚙️ Circuit Operation
 
-When input is LOW (0V), the PMOS transistor turns ON and NMOS turns OFF, connecting the output to VDD (HIGH)
-When input is HIGH (1V), the NMOS transistor turns ON and PMOS turns OFF, connecting the output to VSS (LOW)
-This creates the logical inversion operation: output = NOT(input)
+When the enable signal (in1) is LOW:
 
-📊 Key Parameters
-In this simulation:
+The NAND gate output is forced HIGH
+The oscillation is inhibited
+
+
+When the enable signal (in1) is HIGH:
+
+The NAND gate acts as an inverter
+The circuit forms a ring of 5 inverting stages (1 NAND + 4 inverters)
+This creates sustained oscillation
+
+
+The circuit connections are:
+
+NAND gate inputs: Enable signal and feedback from last inverter
+NAND gate output connects to first inverter
+Four inverters connected in series
+Output of the last inverter feeds back to the NAND gate
+
+
+
+📊 Key Measurements
+The simulation measures several important parameters:
+⏱️ Timing Measurements
+
+Oscillation Period (tperiod):
+
+Measured between consecutive falling edges of the output signal
+TRIG v(out1) VAL=0.5 FALL=4 TARG v(out1) VAL=0.5 FALL=5
+
+
+Pulse Width (pw1):
+
+Time the output remains LOW
+TRIG v(out1) VAL=0.5 FALL=4 TARG v(out1) VAL=0.5 RISE=4
+
+
+Pulse Width (pw2):
+
+Time the output remains HIGH
+TRIG v(out1) VAL=0.5 RISE=4 TARG v(out1) VAL=0.5 FALL=5
+
+
+Propagation Delay (tp):
+
+Calculated as total of pw1 and pw2
+Represents the complete cycle time
+
+
+Duty Cycle (dt):
+
+Calculated as pw2/tp
+Represents the percentage of time the output is HIGH
+
+
+
+⚡ Power Analysis
+
+Average Current (I_avg):
+
+Measured from the power supply from 2ns to 15ns
+AVG i(Vpower) from=2n to=15n
+
+
+Power Consumption:
+
+Calculated as VDD × I_avg
+Measures the average power consumed by the oscillator
+
+
+
+🧪 Simulation Setup
+The simulation is configured as follows:
 
 Supply Voltage (VDD): 1V
 Ground (VSS): 0V
-PMOS Width: 10μm
-NMOS Width: 10μm
-Gate Length (both transistors): 0.18μm
-Load Capacitance: 1nF
+Enable Signal: Pulse waveform that transitions from 0 to 1 at 2ns
+Transient Analysis: 6ns with 1ns step size
 
-📈 Simulation Results
-Voltage Transfer Characteristic (VTC)
-The VTC plot (vout_vs_vin(vtc).png) shows how the output voltage changes with respect to the input voltage. Key points on this curve include:
+🔑 Importance of Ring Oscillators
+Ring oscillators are critical components in digital design for several reasons:
 
-VOH: Maximum output voltage when input is LOW
-VOL: Minimum output voltage when input is HIGH
-VIH: Input voltage above which the output is considered LOW
-VIL: Input voltage below which the output is considered HIGH
-VM: Switching threshold voltage (measured when Vout = 0.5V)
+⏰ Clock Generation: They provide internal clock signals without requiring external crystals or resonators.
+📊 Process Variation Monitoring: They are commonly used to characterize and monitor semiconductor process variations.
+🔬 Performance Benchmarking: The oscillation frequency directly relates to transistor switching speed, making them useful for performance evaluation.
+⚡ Power Analysis: They help measure dynamic power consumption in a technology node.
+🌡️ Temperature Sensing: Their frequency varies with temperature, making them useful for temperature sensing.
+🔄 PLL/DLL Reference: They can serve as voltage-controlled oscillators in Phase-Locked Loops.
 
-The VTC curve demonstrates the inverter's:
+💡 Design Considerations
 
-Voltage gain
-Noise margins
-Switching characteristics
+Oscillation Frequency: Determined by the total propagation delay through all stages.
+Duty Cycle: Ideally 50%, but can vary based on the symmetry of rise/fall times in the inverters.
+Enable Control: The NAND gate provides a clean way to start/stop oscillation without glitches.
+Power Consumption: Critical for battery-powered applications, affected by:
 
-Input vs Output Waveform
-The vin_vs_vout.png shows the time-domain response of the inverter. When the input transitions from LOW to HIGH, the output transitions from HIGH to LOW, and vice versa, demonstrating the inverting behavior of the circuit.
-Drain Current vs Gate-Source Voltage
-The Id_vs_vds.png shows how the drain current through the transistors varies with respect to the gate-source voltage, which helps characterize the:
+Supply voltage
+Oscillation frequency
+Capacitive load
+Transistor sizing
 
-Transistor operation regions
-Current consumption during switching
-Static power consumption
 
-🧪 Simulation Methods
-The inverter.sp file contains two main simulation approaches:
-
-Transient Analysis: Uncomment .tran 1m 100m to observe the time-domain behavior
-DC Analysis: Using .dc Vgate 0 1 1m to sweep the input voltage and generate the VTC
-
-🔑 Importance of Inverter Analysis
-Analyzing the inverter is fundamental for digital IC design because:
-
-🔍 Digital Performance: The inverter's switching characteristics determine the maximum operating frequency of digital circuits.
-⚡ Power Consumption: Understanding the current draw during static and dynamic operation helps optimize power usage.
-📊 Noise Margins: The VTC helps determine how resistant the circuit is to noise.
-⚖️ Transistor Sizing: Proper PMOS/NMOS sizing ensures balanced rising and falling edge times.
-🌡️ Process Variation Analysis: Simulations help understand how manufacturing variations affect performance.
+Jitter Performance: Variation in period affects timing precision in digital systems.
 
 🚀 How to Run the Simulation
 
 Ensure you have NGSpice installed on your system
-Navigate to the inverter directory
+Navigate to the simulation directory
 Run the simulation using:
-ngspice inverter.sp
+ngspice ring_osc.sp
 
-Modify the file to uncomment different plot commands for various analyses
+The measurements (period, duty cycle, power) will be displayed in the console
+The waveform will be plotted showing the enable signal and oscillator output
 
 📝 Notes
 
-The threshold voltage (Vt) is measured when Vout = 0.5V using the command: .measure dc Vt FIND v(in) WHEN v(vout)=0.5
-For time-domain analysis, uncomment the appropriate line in the SPICE file
-The circuit uses BSIM4 SOI transistor models for accurate simulation
+The oscillation only starts when the enable signal transitions to HIGH at 2ns
+The duty cycle calculation provides insight into the symmetry of the inverters
+The power measurement excludes the initial startup phase for more accurate steady-state analysis
+Even with an even number of inverters (4), oscillation is possible due to the NAND gate providing an additional inverting stage
