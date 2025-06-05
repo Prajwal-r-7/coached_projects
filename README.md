@@ -9,7 +9,7 @@ This repo contains all the hands-on projects and exercises I worked on during th
 ## 📁 Project Structure
 
 - `ngspice-projects/` – Digital circuit simulations using NGSpice
-- `verilog-projects/` – RTL design of digital blocks using Verilog (coming soon)
+- `verilog-projects/` – RTL design of digital blocks using Verilog 
 
 ---
 
